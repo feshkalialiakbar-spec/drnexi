@@ -1,12 +1,9 @@
 'use client'
-
 import { useEffect, useRef, useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import {
-  MobileValidatorOtp,
+import { 
   MobileValidatorRequest,
-  SignupUser,
-  UserLoginAPI,
+  SignupUser, 
 } from '@/services/user'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
@@ -15,7 +12,6 @@ import { getAccessToken } from '@/hooks/getAccessToken'
 import { Eye, EyeSlash, Key } from 'iconsax-react'
 import OTPInput from '@/components/shared/OTPinput'
 import { CheckMark } from '@/components/shared/IconGenerator'
-
 export interface ISignupForm {
   subsys_id: 3
   auth_method: string
@@ -25,12 +21,10 @@ export interface ISignupForm {
   first_name: string
   last_name: string
   email: string
-
 }
 interface ILoginWithOtpHandler {
   otp_code: string
 }
-
 const SignupForm = () => {
   const { signupOTPForm, setSignupOTPForm } = useToggleSignupOtp()
   const [showPassword, setShowPassword] = useState<boolean>(false)

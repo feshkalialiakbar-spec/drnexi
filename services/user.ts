@@ -70,7 +70,6 @@ interface IMobileValidatorOtp {
 }
 export const RequestOTP = async ({ mobile, otptype, }: {
   mobile: string
-
   otptype: "verify" | 'login'
 }) => {
   try {
@@ -272,32 +271,7 @@ export interface ISignupResponse {
   status: '-1' | '1'
   message: string
 }
-
-// export const SignupUser = async ({
-//   data,
-// }: {
-//   data: ISignupForm
-// }): Promise<ISignupResponse | undefined> => {
-//   try {
-//     const response = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_URL}/.api/v1/sign_up`,
-//       {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(data),
-//       }
-//     )
-
-//     if (response.status !== 200) {
-//       throw new Error('Failed to SignupUser!')
-//     }
-//     return await response.json()
-//   } catch (error: unknown) {
-//     console.log(error)
-//   }
-// }
+ 
 export const SignupUser = async ({
   data,
 }: {
