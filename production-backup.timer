@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily Backup Timer for Production Logs
+Requires=production-backup.service
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target
+

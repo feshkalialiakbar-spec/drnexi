@@ -1,0 +1,36 @@
+
+sudo mkdir -p /home/letsencrypt
+sudo wget https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem -O /home/letsencrypt/ssl-dhparams.pem
+sudo wget https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/options-ssl-nginx.conf -O /etc/home/options-ssl-nginx.conf
+
+
+
+server {
+    server_name login.arzeshyar.com www.login.arzeshyar.com;
+
+    location / {
+       # limit_req zone=mylimit burst=5 nodelay; # Apply rate limiting
+        proxy_set_header   X-Forwarded-For $remote_addr;
+        proxy_set_header   Host $http_host;
+        proxy_pass         "http://127.0.0.1:3000";
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/shahrehaftom.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/shahrehaftom.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = login.arzeshyar.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name login.arzeshyar.com;
+    return 404; # managed by Certbot
+
+
+}

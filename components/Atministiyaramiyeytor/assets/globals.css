@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Tanha;
+  src: url('./fonts/IRANSansWeb\(FaNum\).ttf');
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: Tanha;
+  line-height: 1.75 !important;
+  font-size: 14px !important;
+  direction: rtl;
+}
+
+@media (max-width: 520px) {
+  body {
+    font-size: 13px !important;
+  }
+}
+
+input {
+  background: white;
+  outline: none;
+  height: 40px;
+  padding: 0.12px 1vh;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+}
+input:hover {
+  border-color: #c2d1ff;
+}
+input:focus {
+  border-color: #565ffe;
+}
+.fill-button {
+  background-color: #2f27ce;
+  color: #ffffff;
+}
+.border-button {
+  color: #2f27ce;
+  border: 1px #2f27ce solid;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(45vh);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 1s ease-in-out forwards;
+}
+@keyframes animatelogin  {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(43vh);
+  }
+}
+
+.animate-login  {
+  animation: animatelogin  1s ease-in-out forwards;
+}
+@keyframes slideUpLogout {
+  from {
+    transform: translateY(30vh);
+  }
+  to {
+    transform: translateY(10vh);
+  }
+}
+.animate-logout {
+  animation: slideUpLogout 1s ease-in-out forwards;
+}
+
+@keyframes slideUpFilter {
+  from {
+    top: 100vh;
+  }
+  to {
+    top: 0;
+  }
+}
+.animate-filter {
+  animation: slideUpFilter 1s ease-in-out forwards;
+}
+@keyframes modalAnimate {
+  from {
+    top: 100vh;
+  }
+  to {
+    top: 40vh;
+  }
+}
+
+.modal-animate {
+  animation: modalAnimate 1s ease-in-out forwards;
+}
+@keyframes disable-animate {
+  from {
+    transform: translateX(30vh);
+  }
+}
+.disable-animate{
+  animation: disable-animate .2s ease-in-out forwards;
+
+}
+
+@keyframes animateFilterBox {
+  from {
+    top: 100vh;
+  }
+  to {
+    top: 10vh;
+  }
+}
+
+.animate-filterBox {
+  animation: animateFilterBox 1s ease-in-out forwards;
+}

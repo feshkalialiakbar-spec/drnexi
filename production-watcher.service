@@ -1,0 +1,37 @@
+[Unit]
+Description=Production Folder Watcher Service
+Documentation=https://github.com/your-repo/production-watcher
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/my-next-app
+ExecStart=/home/ubuntu/my-next-app/production-watcher.sh
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=production-watcher
+
+# Environment variables
+Environment=WATCH_DIR=/home/ubuntu/my-next-app/production
+Environment=LOG_DIR=/home/ubuntu/my-next-app/logs
+Environment=BACKUP_DIR=/var/backups/production-logs
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/ubuntu/my-next-app/logs /var/backups/production-logs
+
+# Resource limits
+LimitNOFILE=65536
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

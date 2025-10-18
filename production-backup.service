@@ -1,0 +1,31 @@
+[Unit]
+Description=Daily Backup Service for Production Logs
+Documentation=https://github.com/your-repo/production-watcher
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/my-next-app
+ExecStart=/home/ubuntu/my-next-app/daily-backup.sh
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=production-backup
+
+# Environment variables
+Environment=LOG_DIR=/home/ubuntu/my-next-app/logs
+Environment=BACKUP_DIR=/var/backups/production-logs
+Environment=ARCHIVE_DIR=/var/backups/production-logs/archives
+Environment=RETENTION_DAYS=30
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/home/ubuntu/my-next-app/logs /var/backups/production-logs
+
+# Resource limits
+LimitNOFILE=65536
+MemoryMax=256M
+
