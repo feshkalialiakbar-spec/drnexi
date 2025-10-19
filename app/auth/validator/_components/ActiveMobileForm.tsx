@@ -44,7 +44,7 @@ const ActiveMobileForm = ({ accessToken }: { accessToken: string }) => {
         return true
       }
     }
-  }, [accessToken])
+  }, [])
   useEffect(() => {
     SendOTP()
   }, [accessToken, SendOTP])

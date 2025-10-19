@@ -50,7 +50,7 @@ const Loginatimnage = () => {
       setLoading(true)
       const response =
         inputState === 'password'
-          ? await UserLoginAPI({ username: mobile, password })
+          ? await UserLoginAPI({ identifier: mobile, credential:password })
           : await LoginWithOtpAndMobile({ mobile, otp })
 
       if (!response?.access_token) {

@@ -18,9 +18,11 @@ export interface IAuthenticatedUser {
 export const UserLoginAPI = async ({
   identifier,
   credential,
+  auth = 'username_password'
 }: {
   identifier: string,
   credential: string,
+  auth?: 'username_password' | 'mobile_otp'
 }) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login_mmethods`, {
@@ -30,7 +32,7 @@ export const UserLoginAPI = async ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        auth_method: 'username_password',
+        auth_method: auth,
         identifier,
         credential,
         subsys_id: 3
@@ -40,7 +42,7 @@ export const UserLoginAPI = async ({
     if (response.status !== 200) {
       throw new Error('Failed to Login!')
     }
-    return (await response.json()) as IAccessTokenResponse
+    return (await response.json())
   } catch (error) {
     console.error(error)
   }
@@ -271,7 +273,7 @@ export interface ISignupResponse {
   status: '-1' | '1'
   message: string
 }
- 
+
 export const SignupUser = async ({
   data,
 }: {

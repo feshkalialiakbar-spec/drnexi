@@ -13,6 +13,7 @@ import {
   GetUserPermissions,
   LoginWithOtpAndMobile,
   RequestOTP,
+  UserLoginAPI,
 } from '@/services/user'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -56,9 +57,10 @@ const InsertOtpForLogin = ({
     setIsSubmitting(true)
     setError('')
     try {
-      const response = await LoginWithOtpAndMobile({
-        mobile: phone,
-        otp: otp,
+      const response = await UserLoginAPI({
+        credential: otp,
+        identifier: phone,
+        auth: 'mobile_otp'
       })
 
       if (!response) {
@@ -66,6 +68,9 @@ const InsertOtpForLogin = ({
         setLoading(false)
         return
       }
+      if (response.detail) toast.error(`${response.detail}`)
+      if (response.message) toast.success(`${response.message}`)
+
       const currentUser = await GetCurrentUser({
         accessToken: response.access_token,
       })
