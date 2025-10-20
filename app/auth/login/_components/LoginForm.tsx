@@ -40,7 +40,7 @@ const LoginForm = () => {
     if (!isBot) {
       try {
         setLoading(true)
-        const response: IAccessTokenResponse | undefined = await UserLoginAPI({
+        const response = await UserLoginAPI({
           identifier: data.username,
           credential: data.password,
         })
@@ -50,6 +50,10 @@ const LoginForm = () => {
           toast.error('نام کاربری یا رمز عبور اشتباه است !')
           return
         }
+
+        if (response.detail) toast.error(`${response.detail}`)
+        if (response.message) toast.success(`${response.message}`)
+
         await deleteAllCookies()
         if (response.access_token) {
           await setTokenIntoCookie({

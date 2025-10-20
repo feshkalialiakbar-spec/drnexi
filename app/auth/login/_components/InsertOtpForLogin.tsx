@@ -1,17 +1,16 @@
 'use client'
-
 import {
-
   deleteAllCookies,
+  getAllCookies,
   setCurrentUsertoCookie,
   setTokenIntoCookie,
 } from '@/actions/cookieToken'
+import { callLogAPI } from '@/app/api/logproxy/callLog'
 import LoadingComponent from '@/components/Loading/page'
 import OTPInput from '@/components/shared/OTPinput'
 import {
   GetCurrentUser,
   GetUserPermissions,
-  LoginWithOtpAndMobile,
   RequestOTP,
   UserLoginAPI,
 } from '@/services/user'
@@ -62,15 +61,21 @@ const InsertOtpForLogin = ({
         identifier: phone,
         auth: 'mobile_otp'
       })
-
+      await callLogAPI({
+        message: `new login request in auth/sign-in \n  
+data: ${JSON.stringify(response)}
+user: ${JSON.stringify(await getAllCookies())}`,
+        type: 'info',
+        filekoin: 'loginlog',
+      })
       if (!response) {
         toast.error('خطایی پیش آمد!')
         setLoading(false)
         return
       }
+
       if (response.detail) toast.error(`${response.detail}`)
       if (response.message) toast.success(`${response.message}`)
-
       const currentUser = await GetCurrentUser({
         accessToken: response.access_token,
       })

@@ -41,7 +41,8 @@ const InsertMobileForOtp = ({ setKeepPhone, setShowOtpInput }: IProps) => {
         toast.error('کاربری با این شماره موبایل وجود ندارد!')
         return
       }
-
+      if (response.detail) toast.error(response.detail)
+      if (response.message) toast.success(response.message)
       setKeepPhone(data.mobile)
       setShowOtpInput(true)
       toast.success('پیامک رمز برای شما ارسال شد!')

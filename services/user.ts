@@ -1,4 +1,4 @@
-import { getCookieByKey, IAccessTokenResponse } from '@/actions/cookieToken'
+import { getCookieByKey, } from '@/actions/cookieToken'
 import { ISignupForm } from '@/app/auth/create-new-user-by-admin-access/_components/SignupForm'
 import { IUserResponse, ReferralList, UserRoles } from '@/interfaces'
 
@@ -38,10 +38,6 @@ export const UserLoginAPI = async ({
         subsys_id: 3
       }),
     })
-
-    if (response.status !== 200) {
-      throw new Error('Failed to Login!')
-    }
     return (await response.json())
   } catch (error) {
     console.error(error)
@@ -245,7 +241,7 @@ export const GetCurrentUser = async ({
   accessToken,
 }: {
   accessToken: string | undefined
-}): Promise<IUserResponse | undefined> => {
+}) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/.api/v1/user/me`,
